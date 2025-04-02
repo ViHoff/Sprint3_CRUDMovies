@@ -1,0 +1,33 @@
+generator client 
+{
+  provider = "prisma-client-js"
+}
+
+datasource db 
+{
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Movie 
+{
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  director    String
+  releaseYear Int
+  genre       String
+  reviews     Review[]
+}
+
+model Review 
+{
+  id      Int    @id @default(autoincrement())
+  movieId Int
+  user    String
+  rating  Int
+  comment String
+
+  movie   Movie  @relation(fields: [movieId], references: [id], onDelete: Cascade)
+}
+
