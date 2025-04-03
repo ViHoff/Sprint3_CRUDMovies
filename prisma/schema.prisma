@@ -1,16 +1,13 @@
-generator client 
-{
+generator client {
   provider = "prisma-client-js"
 }
 
-datasource db 
-{
+datasource db {
   provider = "sqlite"
   url      = "file:./dev.db"
 }
 
-model Movie 
-{
+model Movie {
   id          Int      @id @default(autoincrement())
   title       String
   description String
@@ -20,8 +17,7 @@ model Movie
   reviews     Review[]
 }
 
-model Review 
-{
+model Review {
   id      Int    @id @default(autoincrement())
   movieId Int
   user    String

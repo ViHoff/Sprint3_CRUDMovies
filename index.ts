@@ -61,6 +61,28 @@ app.post('/reviews/:movieId', async (req, res) =>
     res.status(201).json(review);
 });
 
+app.put('/reviews/:id', async (req,res) => 
+{
+    const {id} = req.params;
+    const data = req.body;
+    const review = await prisma.review.update({where: { id: Number(id), data}});
+    res.json(review);
+});
+
+app.delete('/reviews/:id', async (req,res) =>
+{
+    try
+    {
+        const id = Number(req.params.id);
+        await prisma.review.delete({where: {id}});
+        res.json({message: "deleted review"});
+    }
+    catch(error)
+    {
+        res.status(500).json({error: 'Erro ao deletar Review', details: error.message });
+    }
+});
+
 const PORT = 3000;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
 
